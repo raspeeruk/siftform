@@ -1,13 +1,27 @@
 import Stripe from "stripe";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-04-30.basil",
+let _stripe: Stripe | null = null;
+
+export function getStripe(): Stripe {
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: "2025-04-30.basil",
+    });
+  }
+  return _stripe;
+}
+
+// Backwards compat: lazy proxy
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    return (getStripe() as any)[prop];
+  },
 });
 
 export const PLANS = {
   starter: {
     name: "Starter",
-    price: 2900, // cents
+    price: 2900,
     extractions: 500,
     schemas: 1,
     webhooks: 1,
@@ -17,7 +31,7 @@ export const PLANS = {
     name: "Growth",
     price: 7900,
     extractions: 2000,
-    schemas: -1, // unlimited
+    schemas: -1,
     webhooks: 5,
     apiAccess: true,
   },
