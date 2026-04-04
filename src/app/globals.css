@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sift color palette — Precision Optics */
+  --color-polar: #F0F4F8;
+  --color-ice: #FAFCFE;
+  --color-signal: #2563EB;
+  --color-signal-dark: #1D4ED8;
+  --color-signal-light: #DBEAFE;
+  --color-extract: #E6A817;
+  --color-extract-light: #FEF3C7;
+  --color-graphite: #1A2332;
+  --color-slate-muted: #64748B;
+  --color-verified: #16A34A;
+  --color-warning: #D97706;
+  --color-alert: #DC2626;
+  --color-deep: #111827;
+  --color-border: #E2E8F0;
+
+  /* Typography */
+  --font-heading: "Satoshi", sans-serif;
+  --font-body: "Switzer", sans-serif;
+  --font-mono: "Fragment Mono", monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-graphite);
+  background-color: var(--color-polar);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
