@@ -3,7 +3,7 @@
 ## Brand Identity
 
 **Product**: Sift — Turn unstructured text into structured data
-**URL**: siftform.com
+**URL**: siftforms.com
 **Tagline**: "Your forms are broken. Text is natural."
 
 ## Aesthetic: Precision Optics / Data Refinery

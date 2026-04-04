@@ -329,7 +329,7 @@ function SiftWidget({
       {/* Footer */}
       <div style={styles.footer}>
         <a
-          href="https://siftform.com"
+          href="https://siftforms.com"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.footerLink}
@@ -519,7 +519,7 @@ function initWidget() {
     const schemaId = script.getAttribute("data-schema-id")!;
     const apiKey = script.getAttribute("data-api-key")!;
     const apiUrl =
-      script.getAttribute("data-api-url") || "https://siftform.com";
+      script.getAttribute("data-api-url") || "https://siftforms.com";
 
     // Create container
     const container = document.createElement("div");

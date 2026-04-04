@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         error: "Extraction limit reached",
         used: usage.used,
         limit: usage.limit,
-        upgrade_url: "https://siftform.com/dashboard/billing",
+        upgrade_url: "https://siftforms.com/dashboard/billing",
       },
       { status: 429, headers: corsHeaders() }
     );

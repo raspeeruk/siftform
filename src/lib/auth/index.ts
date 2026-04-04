@@ -74,7 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     Resend({
-      from: "Sift <noreply@siftform.com>",
+      from: "Sift <noreply@siftforms.com>",
     }),
   ],
   pages: {

@@ -49,8 +49,8 @@ export async function POST(request: NextRequest) {
     customer: customerId,
     mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${process.env.AUTH_URL || "https://siftform.com"}/dashboard/billing?success=true`,
-    cancel_url: `${process.env.AUTH_URL || "https://siftform.com"}/dashboard/billing`,
+    success_url: `${process.env.AUTH_URL || "https://siftforms.com"}/dashboard/billing?success=true`,
+    cancel_url: `${process.env.AUTH_URL || "https://siftforms.com"}/dashboard/billing`,
     metadata: { organization_id: orgId, plan },
   });
 

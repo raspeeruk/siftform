@@ -15,7 +15,7 @@ export default function ApiDocsPage() {
         <p className="mt-2 text-sm text-slate-muted">
           Base URL:{" "}
           <code className="font-[family-name:var(--font-mono)] text-signal">
-            https://siftform.com/api/v1
+            https://siftforms.com/api/v1
           </code>
         </p>
 
@@ -44,7 +44,7 @@ export default function ApiDocsPage() {
           {/* Extract text */}
           <Section title="POST /extract" badge="Text Extraction">
             <p>Extract structured data from plain text.</p>
-            <Code>{`curl -X POST https://siftform.com/api/v1/extract \\
+            <Code>{`curl -X POST https://siftforms.com/api/v1/extract \\
   -H "Authorization: Bearer iq_live_xxx" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -76,7 +76,7 @@ export default function ApiDocsPage() {
               Upload an image or PDF. Sift extracts text via AI vision, then maps
               to your schema.
             </p>
-            <Code>{`curl -X POST https://siftform.com/api/v1/extract/file \\
+            <Code>{`curl -X POST https://siftforms.com/api/v1/extract/file \\
   -H "Authorization: Bearer iq_live_xxx" \\
   -F "file=@receipt.jpg" \\
   -F "schema_id=your-schema-uuid"`}</Code>
@@ -90,7 +90,7 @@ export default function ApiDocsPage() {
             <p>
               Complete a pending submission by providing missing required fields.
             </p>
-            <Code>{`curl -X POST https://siftform.com/api/v1/submissions/confirm \\
+            <Code>{`curl -X POST https://siftforms.com/api/v1/submissions/confirm \\
   -H "Authorization: Bearer iq_pub_xxx" \\
   -H "Content-Type: application/json" \\
   -d '{

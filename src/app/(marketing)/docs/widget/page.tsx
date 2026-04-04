@@ -20,7 +20,7 @@ export default function WidgetDocsPage() {
           <Section title="Quick Start">
             <p>Add this script tag to your HTML:</p>
             <Code>{`<script
-  src="https://siftform.com/widget/v1.js"
+  src="https://siftforms.com/widget/v1.js"
   data-schema-id="YOUR_SCHEMA_ID"
   data-api-key="iq_pub_xxxxxxxxxxxxx"
   async
@@ -72,7 +72,7 @@ export default function WidgetDocsPage() {
                   </td>
                   <td className="py-2 pr-4">No</td>
                   <td className="py-2 text-slate-muted">
-                    Custom API URL (default: https://siftform.com)
+                    Custom API URL (default: https://siftforms.com)
                   </td>
                 </tr>
               </tbody>

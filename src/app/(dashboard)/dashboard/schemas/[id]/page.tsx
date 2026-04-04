@@ -154,7 +154,7 @@ export default function SchemaDetailPage({
             </p>
             <div className="mt-4 rounded-md bg-deep p-4">
               <code className="block whitespace-pre-wrap break-all font-[family-name:var(--font-mono)] text-xs text-green-400">
-                {`<script\n  src="https://siftform.com/widget/v1.js"\n  data-schema-id="${id}"\n  data-api-key="YOUR_PUBLIC_KEY"\n  async\n></script>`}
+                {`<script\n  src="https://siftforms.com/widget/v1.js"\n  data-schema-id="${id}"\n  data-api-key="YOUR_PUBLIC_KEY"\n  async\n></script>`}
               </code>
             </div>
             <p className="mt-3 text-xs text-slate-muted">
@@ -176,7 +176,7 @@ export default function SchemaDetailPage({
             </h3>
             <div className="mt-4 rounded-md bg-deep p-4">
               <code className="block whitespace-pre-wrap font-[family-name:var(--font-mono)] text-xs text-green-400">
-                {`curl -X POST https://siftform.com/api/v1/extract \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d '{"text": "Your text here", "schema_id": "${id}"}'`}
+                {`curl -X POST https://siftforms.com/api/v1/extract \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d '{"text": "Your text here", "schema_id": "${id}"}'`}
               </code>
             </div>
           </div>
