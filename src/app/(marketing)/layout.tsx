@@ -18,22 +18,34 @@ export default function MarketingLayout({
             </Link>
             <nav className="hidden items-center gap-6 sm:flex">
               <Link
+                href="/templates"
+                className="text-sm text-slate-muted hover:text-graphite"
+              >
+                Templates
+              </Link>
+              <Link
+                href="/use-cases/support-tickets"
+                className="text-sm text-slate-muted hover:text-graphite"
+              >
+                Use Cases
+              </Link>
+              <Link
                 href="/pricing"
                 className="text-sm text-slate-muted hover:text-graphite"
               >
                 Pricing
               </Link>
               <Link
+                href="/integrations"
+                className="text-sm text-slate-muted hover:text-graphite"
+              >
+                Integrations
+              </Link>
+              <Link
                 href="/docs/api"
                 className="text-sm text-slate-muted hover:text-graphite"
               >
                 API Docs
-              </Link>
-              <Link
-                href="/docs/widget"
-                className="text-sm text-slate-muted hover:text-graphite"
-              >
-                Widget
               </Link>
             </nav>
           </div>
@@ -62,15 +74,18 @@ export default function MarketingLayout({
             <span className="text-lg font-black tracking-tight text-graphite/30 font-[family-name:var(--font-heading)]">
               sift
             </span>
-            <nav className="flex gap-6 text-sm text-slate-muted">
+            <nav className="flex flex-wrap gap-6 text-sm text-slate-muted">
+              <Link href="/templates" className="hover:text-graphite">
+                Templates
+              </Link>
               <Link href="/pricing" className="hover:text-graphite">
                 Pricing
               </Link>
+              <Link href="/integrations" className="hover:text-graphite">
+                Integrations
+              </Link>
               <Link href="/docs/api" className="hover:text-graphite">
                 API
-              </Link>
-              <Link href="/docs/widget" className="hover:text-graphite">
-                Widget
               </Link>
             </nav>
             <p className="text-xs text-slate-muted">
