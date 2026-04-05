@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 import { createDb } from "@/lib/db";
 import {
@@ -69,10 +68,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
     Resend({
       from: "Sift <noreply@siftforms.com>",
     }),
