@@ -4,17 +4,29 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Pricing — Sift",
   description:
-    "Simple, transparent pricing. Start at $29/month for 500 AI extractions.",
+    "Start free with 50 AI extractions/month. Upgrade for more volume, schemas, and API access.",
 };
 
 const PLANS = [
+  {
+    name: "Free",
+    price: "$0",
+    description: "Try Sift with zero commitment",
+    features: [
+      "50 extractions/month",
+      "1 schema",
+      "Widget embedding",
+      "Email support",
+    ],
+    notIncluded: ["Webhooks", "API access", "Unlimited schemas"],
+  },
   {
     name: "Starter",
     price: "$29",
     description: "For small teams getting started",
     features: [
       "500 extractions/month",
-      "1 schema",
+      "3 schemas",
       "1 webhook",
       "Email support",
       "Widget embedding",
@@ -64,7 +76,7 @@ export default function PricingPage() {
           Start for free. Upgrade when you need more extractions.
         </p>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 lg:grid-cols-4">
           {PLANS.map((plan) => (
             <div
               key={plan.name}

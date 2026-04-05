@@ -5,11 +5,20 @@ import { useSearchParams } from "next/navigation";
 
 const PLANS = [
   {
+    id: "free",
+    name: "Free",
+    price: "$0",
+    extractions: "50",
+    schemas: "1",
+    webhooks: "0",
+    api: false,
+  },
+  {
     id: "starter",
     name: "Starter",
     price: "$29",
     extractions: "500",
-    schemas: "1",
+    schemas: "3",
     webhooks: "1",
     api: false,
   },
@@ -36,8 +45,8 @@ const PLANS = [
 
 export default function BillingPage() {
   const searchParams = useSearchParams();
-  const [currentPlan, setCurrentPlan] = useState("starter");
-  const [usage, setUsage] = useState({ used: 0, limit: 500 });
+  const [currentPlan, setCurrentPlan] = useState("free");
+  const [usage, setUsage] = useState({ used: 0, limit: 50 });
   const [loading, setLoading] = useState<string | null>(null);
   const success = searchParams.get("success") === "true";
 
@@ -130,7 +139,7 @@ export default function BillingPage() {
             }}
           />
         </div>
-        {currentPlan !== "starter" && (
+        {currentPlan !== "free" && (
           <button
             onClick={handleManageBilling}
             disabled={loading === "portal"}
@@ -142,7 +151,7 @@ export default function BillingPage() {
       </div>
 
       {/* Plans */}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-4">
         {PLANS.map((plan) => {
           const isCurrent = plan.id === currentPlan;
           return (
@@ -193,10 +202,12 @@ export default function BillingPage() {
               </ul>
 
               <button
-                onClick={() => handleSubscribe(plan.id)}
-                disabled={isCurrent || loading === plan.id}
+                onClick={() => plan.id !== "free" && handleSubscribe(plan.id)}
+                disabled={isCurrent || loading === plan.id || plan.id === "free"}
                 className={`mt-6 w-full rounded-md px-4 py-2 text-sm font-medium transition ${
                   isCurrent
+                    ? "border border-border bg-polar text-slate-muted cursor-default"
+                    : plan.id === "free"
                     ? "border border-border bg-polar text-slate-muted cursor-default"
                     : plan.popular
                     ? "bg-signal text-white hover:bg-signal-dark"
@@ -205,9 +216,11 @@ export default function BillingPage() {
               >
                 {isCurrent
                   ? "Current plan"
+                  : plan.id === "free"
+                  ? "Free"
                   : loading === plan.id
                   ? "Loading..."
-                  : "Subscribe"}
+                  : "Upgrade"}
               </button>
             </div>
           );

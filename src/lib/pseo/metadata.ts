@@ -58,10 +58,10 @@ export function softwareApplicationJsonLd() {
     url: SITE_URL,
     offers: {
       "@type": "AggregateOffer",
-      lowPrice: "29",
+      lowPrice: "0",
       highPrice: "199",
       priceCurrency: "USD",
-      offerCount: 3,
+      offerCount: 4,
     },
   };
 }

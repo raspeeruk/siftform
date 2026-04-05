@@ -110,8 +110,8 @@ export async function POST(request: NextRequest) {
         await db
           .update(organizations)
           .set({
-            plan: "starter",
-            extractionsLimit: PLANS.starter.extractions,
+            plan: "free",
+            extractionsLimit: PLANS.free.extractions,
           })
           .where(eq(organizations.id, org.id));
       }

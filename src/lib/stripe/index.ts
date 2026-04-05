@@ -19,11 +19,19 @@ export const stripe = new Proxy({} as Stripe, {
 });
 
 export const PLANS = {
+  free: {
+    name: "Free",
+    price: 0,
+    extractions: 50,
+    schemas: 1,
+    webhooks: 0,
+    apiAccess: false,
+  },
   starter: {
     name: "Starter",
     price: 2900,
     extractions: 500,
-    schemas: 1,
+    schemas: 3,
     webhooks: 1,
     apiAccess: false,
   },

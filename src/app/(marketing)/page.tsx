@@ -316,8 +316,9 @@ export default function HomePage() {
             <p className="mt-3 text-slate-muted">
               Start for free. Upgrade when you need more extractions.
             </p>
-            <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            <div className="mt-10 grid gap-6 sm:grid-cols-4">
               {[
+                { name: "Free", price: "$0", desc: "50 extractions/mo" },
                 { name: "Starter", price: "$29", desc: "500 extractions/mo" },
                 {
                   name: "Growth",
@@ -386,14 +387,14 @@ export default function HomePage() {
               Start extracting data.
             </h2>
             <p className="mt-4 text-slate-muted">
-              Set up your first schema in under 5 minutes. No credit card
-              required.
+              Set up your first schema in under 5 minutes. Free tier included —
+              no credit card required.
             </p>
             <Link
               href="/login"
               className="mt-8 inline-block rounded-md bg-signal px-8 py-3 text-sm font-medium text-white shadow-sm hover:bg-signal-dark"
             >
-              Start extracting data — free
+              Try Sift free — 50 extractions/mo
             </Link>
           </div>
         </section>

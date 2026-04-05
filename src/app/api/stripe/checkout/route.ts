@@ -16,6 +16,9 @@ export async function POST(request: NextRequest) {
   if (!["starter", "growth", "scale"].includes(plan)) {
     return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
   }
+  if (plan === "free") {
+    return NextResponse.json({ error: "Free plan does not require checkout" }, { status: 400 });
+  }
 
   const db = createDb();
   const [org] = await db
