@@ -1,17 +1,34 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const searchParams = useSearchParams();
+  const plan = searchParams.get("plan");
+
+  // If a paid plan was selected, after auth redirect to billing with auto-checkout
+  const callbackUrl =
+    plan && ["starter", "growth", "scale"].includes(plan)
+      ? `/dashboard/billing?checkout=${plan}`
+      : "/dashboard";
 
   async function handleMagicLink(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await signIn("resend", { email, callbackUrl: "/dashboard" });
+    await signIn("resend", { email, callbackUrl });
     setSent(true);
     setLoading(false);
   }

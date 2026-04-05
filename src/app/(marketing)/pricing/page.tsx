@@ -9,9 +9,11 @@ export const metadata: Metadata = {
 
 const PLANS = [
   {
+    id: "free",
     name: "Free",
     price: "$0",
     description: "Try Sift with zero commitment",
+    cta: "Sign up free",
     features: [
       "50 extractions/month",
       "1 schema",
@@ -21,9 +23,11 @@ const PLANS = [
     notIncluded: ["Webhooks", "API access", "Unlimited schemas"],
   },
   {
+    id: "starter",
     name: "Starter",
     price: "$29",
     description: "For small teams getting started",
+    cta: "Start with Starter",
     features: [
       "500 extractions/month",
       "3 schemas",
@@ -34,10 +38,12 @@ const PLANS = [
     notIncluded: ["API access", "Unlimited schemas"],
   },
   {
+    id: "growth",
     name: "Growth",
     price: "$79",
     description: "For growing businesses",
     popular: true,
+    cta: "Start with Growth",
     features: [
       "2,000 extractions/month",
       "Unlimited schemas",
@@ -49,9 +55,11 @@ const PLANS = [
     notIncluded: [],
   },
   {
+    id: "scale",
     name: "Scale",
     price: "$199",
     description: "For high-volume operations",
+    cta: "Start with Scale",
     features: [
       "10,000 extractions/month",
       "Unlimited schemas",
@@ -147,14 +155,14 @@ export default function PricingPage() {
               </ul>
 
               <Link
-                href="/login"
+                href={plan.id === "free" ? "/login" : `/login?plan=${plan.id}`}
                 className={`mt-8 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium transition ${
                   plan.popular
                     ? "bg-signal text-white hover:bg-signal-dark"
                     : "border border-border bg-white text-graphite hover:bg-polar"
                 }`}
               >
-                Get started
+                {plan.cta}
               </Link>
             </div>
           ))}

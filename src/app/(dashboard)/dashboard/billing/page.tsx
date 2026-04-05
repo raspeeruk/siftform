@@ -49,6 +49,8 @@ export default function BillingPage() {
   const [usage, setUsage] = useState({ used: 0, limit: 50 });
   const [loading, setLoading] = useState<string | null>(null);
   const success = searchParams.get("success") === "true";
+  const checkoutPlan = searchParams.get("checkout");
+  const [autoCheckoutDone, setAutoCheckoutDone] = useState(false);
 
   useEffect(() => {
     fetch("/api/dashboard/insights")
@@ -60,6 +62,19 @@ export default function BillingPage() {
         }
       });
   }, []);
+
+  // Auto-trigger Stripe checkout if ?checkout=plan is present (from signup flow)
+  useEffect(() => {
+    if (
+      checkoutPlan &&
+      ["starter", "growth", "scale"].includes(checkoutPlan) &&
+      !autoCheckoutDone &&
+      !success
+    ) {
+      setAutoCheckoutDone(true);
+      handleSubscribe(checkoutPlan);
+    }
+  }, [checkoutPlan]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleSubscribe(plan: string) {
     setLoading(plan);

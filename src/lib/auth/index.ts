@@ -82,10 +82,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!user.id || !user.email) return;
       const db = createDb();
 
+      // Auto-upgrade admin accounts
+      const ADMIN_EMAILS: Record<string, { plan: string; limit: number }> = {
+        "speer.ra@gmail.com": { plan: "growth", limit: 2000 },
+      };
+      const adminConfig = ADMIN_EMAILS[user.email];
+
       const orgName = user.email.split("@")[0] + "'s Organization";
       const [org] = await db
         .insert(organizations)
-        .values({ name: orgName })
+        .values({
+          name: orgName,
+          ...(adminConfig
+            ? {
+                plan: adminConfig.plan,
+                extractionsLimit: adminConfig.limit,
+              }
+            : {}),
+        })
         .returning();
 
       await db
