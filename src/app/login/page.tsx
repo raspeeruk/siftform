@@ -19,10 +19,10 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
 
-  // If a paid plan was selected, after auth redirect to billing with auto-checkout
+  // If a paid plan was selected, after auth redirect straight to Stripe checkout (server-side)
   const callbackUrl =
     plan && ["starter", "growth", "scale"].includes(plan)
-      ? `/dashboard/billing?checkout=${plan}`
+      ? `/dashboard/activate/${plan}`
       : "/dashboard";
 
   async function handleMagicLink(e: React.FormEvent) {
