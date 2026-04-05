@@ -22,6 +22,7 @@ function getAdapter() {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: {
     // Lazy adapter — only connects to DB when actually called
     get createUser() {
