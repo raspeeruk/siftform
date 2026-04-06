@@ -36,7 +36,7 @@ export default async function AlternativePage({ params }: Props) {
     },
     {
       question: `Can I migrate my ${comp.name} forms to Sift?`,
-      answer: `You don't migrate forms — you create extraction schemas. Define the fields you need (name, email, issue type, etc.) and Sift's AI will extract them from any text input. Most teams are up and running in under 10 minutes.`,
+      answer: `You don't migrate forms — you create extraction forms. Define the fields you need (name, email, issue type, etc.) and Sift's AI will extract them from any text input. Most teams are up and running in under 10 minutes.`,
     },
     {
       question: "How accurate is the AI extraction?",
@@ -147,7 +147,7 @@ export default async function AlternativePage({ params }: Props) {
               Try Sift free
             </h2>
             <p className="mt-2 text-sm text-slate-muted">
-              Set up your first extraction schema in under 5 minutes. No credit
+              Set up your first extraction form in under 5 minutes. No credit
               card required.
             </p>
             <Link

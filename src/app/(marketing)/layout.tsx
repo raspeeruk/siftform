@@ -24,7 +24,7 @@ export default function MarketingLayout({
                 Templates
               </Link>
               <Link
-                href="/use-cases/support-tickets"
+                href="/use-cases"
                 className="text-sm text-slate-muted hover:text-graphite"
               >
                 Use Cases

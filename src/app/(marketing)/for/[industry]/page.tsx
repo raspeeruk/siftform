@@ -129,7 +129,7 @@ export default async function IndustryPage({ params }: Props) {
           {/* Recommended schema */}
           <section className="mt-12">
             <h2 className="mb-6 text-xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-              Recommended schema for {industry.name.toLowerCase()}
+              Recommended form fields for {industry.name.toLowerCase()}
             </h2>
             <SchemaPreview fields={industry.recommendedFields} />
           </section>
@@ -148,7 +148,7 @@ export default async function IndustryPage({ params }: Props) {
               Ready to modernise your {industry.name.toLowerCase()} intake?
             </h2>
             <p className="mt-2 text-sm text-slate-muted">
-              Set up your first extraction schema in under 5 minutes.
+              Set up your first extraction form in under 5 minutes.
             </p>
             <Link
               href="/login"

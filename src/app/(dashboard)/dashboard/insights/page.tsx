@@ -151,14 +151,14 @@ export default function InsightsPage() {
       {data.schemaBreakdown.length > 0 && (
         <div className="rounded-lg border border-border bg-ice p-5">
           <h2 className="text-sm font-medium text-graphite font-[family-name:var(--font-heading)]">
-            By Schema
+            By Form
           </h2>
           <div className="mt-3 overflow-hidden rounded border border-border bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-polar/50 text-left">
                   <th className="px-4 py-2 font-medium text-slate-muted">
-                    Schema
+                    Form
                   </th>
                   <th className="px-4 py-2 font-medium text-slate-muted">
                     Extractions

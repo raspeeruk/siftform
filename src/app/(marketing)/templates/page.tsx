@@ -21,7 +21,7 @@ export default function TemplatesPage() {
           Extraction templates
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-slate-muted">
-          Pre-built schemas for common intake scenarios. Pick one, customise the
+          Pre-built forms for common intake scenarios. Pick one, customise the
           fields, and start extracting structured data from natural text.
         </p>
 

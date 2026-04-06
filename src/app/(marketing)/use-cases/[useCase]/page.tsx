@@ -51,7 +51,7 @@ export default async function UseCasePage({ params }: Props) {
           __html: JSON.stringify([
             faqJsonLd(uc.faqs),
             breadcrumbJsonLd([
-              { name: "Use Cases", href: "/use-cases/support-tickets" },
+              { name: "Use Cases", href: "/use-cases" },
               { name: uc.name, href: `/use-cases/${slug}` },
             ]),
           ]),

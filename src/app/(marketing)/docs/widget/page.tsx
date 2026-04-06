@@ -54,7 +54,7 @@ export default function WidgetDocsPage() {
                   </td>
                   <td className="py-2 pr-4">Yes</td>
                   <td className="py-2 text-slate-muted">
-                    The UUID of your schema
+                    The UUID of your form
                   </td>
                 </tr>
                 <tr className="border-b border-border">
@@ -85,7 +85,7 @@ export default function WidgetDocsPage() {
                 User types (or speaks) their description in the text area
               </li>
               <li>
-                AI extracts structured data mapped to your schema fields
+                AI extracts structured data mapped to your form fields
               </li>
               <li>
                 Extracted fields are displayed with confidence indicators
@@ -111,6 +111,28 @@ export default function WidgetDocsPage() {
               The widget renders inside a Shadow DOM, which means your page&apos;s
               CSS won&apos;t affect the widget and vice versa. The widget has its own
               self-contained styles.
+            </p>
+          </Section>
+
+          <Section title="Platform Install Guides">
+            <p>
+              Step-by-step embed instructions for every major platform:
+            </p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>Shopify (Custom Liquid section)</li>
+              <li>WordPress (Custom HTML block)</li>
+              <li>Webflow (Embed component)</li>
+              <li>Squarespace (Code Block)</li>
+              <li>Wix (Custom Element)</li>
+              <li>React / Next.js (useEffect pattern)</li>
+            </ul>
+            <p>
+              <a
+                href="/docs/embed"
+                className="font-medium text-signal hover:underline"
+              >
+                View all platform guides &rarr;
+              </a>
             </p>
           </Section>
 

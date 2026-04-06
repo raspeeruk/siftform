@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Pricing — Sift",
   description:
-    "Start free with 50 AI extractions/month. Upgrade for more volume, schemas, and API access.",
+    "Start free with 50 AI extractions/month. Upgrade for more volume, forms, and API access.",
 };
 
 const PLANS = [
@@ -16,11 +16,11 @@ const PLANS = [
     cta: "Sign up free",
     features: [
       "50 extractions/month",
-      "1 schema",
+      "1 form",
       "Widget embedding",
       "Email support",
     ],
-    notIncluded: ["Webhooks", "API access", "Unlimited schemas"],
+    notIncluded: ["Webhooks", "API access", "Unlimited forms"],
   },
   {
     id: "starter",
@@ -30,12 +30,12 @@ const PLANS = [
     cta: "Start with Starter",
     features: [
       "500 extractions/month",
-      "3 schemas",
+      "3 forms",
       "1 webhook",
       "Email support",
       "Widget embedding",
     ],
-    notIncluded: ["API access", "Unlimited schemas"],
+    notIncluded: ["API access", "Unlimited forms"],
   },
   {
     id: "growth",
@@ -46,7 +46,7 @@ const PLANS = [
     cta: "Start with Growth",
     features: [
       "2,000 extractions/month",
-      "Unlimited schemas",
+      "Unlimited forms",
       "5 webhooks",
       "Full API access",
       "Priority support",
@@ -62,7 +62,7 @@ const PLANS = [
     cta: "Start with Scale",
     features: [
       "10,000 extractions/month",
-      "Unlimited schemas",
+      "Unlimited forms",
       "Unlimited webhooks",
       "Full API access",
       "Priority support",
@@ -175,7 +175,7 @@ export default function PricingPage() {
           </h2>
           <p className="mt-2 text-sm text-slate-muted">
             One extraction = one piece of text or file processed through AI and
-            mapped to your schema. Playground usage is free and unlimited.
+            mapped to your form fields. Playground usage is free and unlimited.
             Extractions reset at the start of each billing period.
           </p>
         </div>

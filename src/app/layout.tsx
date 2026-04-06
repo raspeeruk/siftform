@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = "G-9C5YW41WFP";
 
 export const metadata: Metadata = {
   title: "Sift — Turn Unstructured Text into Structured Data",
@@ -10,6 +13,9 @@ export const metadata: Metadata = {
     description:
       "Replace your forms with natural language. Users describe their situation, AI extracts the data you need.",
     siteName: "Sift",
+  },
+  verification: {
+    google: "Iputr7VnmeGAdV7BDD9009KppfZ5QI1O96e_m589DYY",
   },
 };
 
@@ -31,7 +37,21 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
+      </body>
     </html>
   );
 }

@@ -185,7 +185,7 @@ export default function BillingPage() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check />
-                  {plan.schemas} schema{plan.schemas !== "1" ? "s" : ""}
+                  {plan.schemas} form{plan.schemas !== "1" ? "s" : ""}
                 </li>
                 <li className="flex items-center gap-2">
                   <Check />

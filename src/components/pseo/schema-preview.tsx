@@ -6,7 +6,7 @@ export function SchemaPreview({
   return (
     <div className="rounded-lg border border-border bg-ice p-6">
       <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-muted">
-        Recommended Schema Fields
+        Recommended Form Fields
       </h3>
       <div className="space-y-3">
         {fields.map((field) => (

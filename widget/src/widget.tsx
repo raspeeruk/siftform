@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
 import { h, render } from "preact";
-import { useState, useRef, useEffect } from "preact/hooks";
+import { useState, useRef, useEffect, useMemo } from "preact/hooks";
 
 type WidgetState =
   | "idle"
@@ -21,14 +21,58 @@ type ExtractionResult = {
   warnings: string[];
 };
 
+type WidgetConfig = {
+  theme?: {
+    primaryColor?: string;
+    backgroundColor?: string;
+    textColor?: string;
+    borderRadius?: number;
+    fontFamily?: string;
+  };
+  copy?: {
+    title?: string;
+    subtitle?: string;
+    placeholder?: string;
+    buttonText?: string;
+  };
+  behavior?: {
+    position?: "inline" | "bottom-right" | "bottom-left";
+    fileUpload?: boolean;
+    maxFileSize?: number;
+    acceptedFileTypes?: string[];
+  };
+};
+
+const DEFAULT_CONFIG: Required<
+  Pick<WidgetConfig, "theme" | "copy">
+> = {
+  theme: {
+    primaryColor: "#2563EB",
+    backgroundColor: "#FAFCFE",
+    textColor: "#1A2332",
+    borderRadius: 8,
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
+  copy: {
+    title: "Tell us what's going on",
+    subtitle: "",
+    placeholder: "Describe your situation in your own words...",
+    buttonText: "Submit",
+  },
+};
+
 function SiftWidget({
   schemaId,
   apiKey,
   apiUrl,
+  initialConfig,
+  initialDescription,
 }: {
   schemaId: string;
   apiKey: string;
   apiUrl: string;
+  initialConfig: WidgetConfig;
+  initialDescription: string;
 }) {
   const [state, setState] = useState<WidgetState>("idle");
   const [text, setText] = useState("");
@@ -39,6 +83,196 @@ function SiftWidget({
   const [error, setError] = useState("");
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<any>(null);
+
+  // Resolve config with defaults
+  const resolved = useMemo(() => {
+    const cfg = initialConfig;
+    const theme = { ...DEFAULT_CONFIG.theme, ...cfg.theme };
+    const copy = { ...DEFAULT_CONFIG.copy, ...cfg.copy };
+    // Use description as subtitle default if no explicit subtitle
+    if (!copy.subtitle && initialDescription) {
+      copy.subtitle = initialDescription;
+    }
+    return { theme, copy };
+  }, [initialConfig, initialDescription]);
+
+  // Build scoped styles from resolved config
+  const s = useMemo(() => {
+    const t = resolved.theme;
+    return {
+      container: {
+        fontFamily: t.fontFamily,
+        border: "1px solid #E2E8F0",
+        borderRadius: `${t.borderRadius}px`,
+        overflow: "hidden",
+        maxWidth: "480px",
+        backgroundColor: t.backgroundColor,
+        fontSize: "14px",
+        color: t.textColor,
+        lineHeight: "1.5",
+      },
+      header: {
+        padding: "12px 16px",
+        borderBottom: "1px solid #E2E8F0",
+        backgroundColor: "#F0F4F8",
+      },
+      headerText: {
+        fontWeight: "600",
+        fontSize: "14px",
+        color: t.textColor,
+      },
+      subtitle: {
+        fontSize: "12px",
+        color: "#64748B",
+        marginTop: "4px",
+      },
+      body: {
+        padding: "16px",
+      },
+      textareaWrap: {
+        position: "relative" as const,
+      },
+      textarea: {
+        width: "100%",
+        border: "1px solid #E2E8F0",
+        borderRadius: `${Math.max(t.borderRadius! - 2, 4)}px`,
+        padding: "10px 40px 10px 12px",
+        fontSize: "14px",
+        fontFamily: "inherit",
+        resize: "vertical" as const,
+        outline: "none",
+        color: t.textColor,
+        backgroundColor: "#fff",
+        boxSizing: "border-box" as const,
+      },
+      voiceBtn: {
+        position: "absolute" as const,
+        right: "8px",
+        top: "8px",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        fontSize: "18px",
+        padding: "4px",
+        borderRadius: "4px",
+        color: "#64748B",
+      },
+      submitBtn: {
+        width: "100%",
+        marginTop: "10px",
+        padding: "10px",
+        backgroundColor: t.primaryColor,
+        color: "#fff",
+        border: "none",
+        borderRadius: `${Math.max(t.borderRadius! - 2, 4)}px`,
+        fontWeight: "500",
+        fontSize: "14px",
+        cursor: "pointer",
+      },
+      input: {
+        width: "100%",
+        border: "1px solid #E2E8F0",
+        borderRadius: `${Math.max(t.borderRadius! - 2, 4)}px`,
+        padding: "8px 12px",
+        fontSize: "14px",
+        outline: "none",
+        color: t.textColor,
+        marginTop: "4px",
+        boxSizing: "border-box" as const,
+      },
+      center: {
+        textAlign: "center" as const,
+        padding: "20px 0",
+      },
+      spinner: {
+        width: "24px",
+        height: "24px",
+        border: "2px solid #E2E8F0",
+        borderTopColor: t.primaryColor,
+        borderRadius: "50%",
+        animation: "sift-spin 0.6s linear infinite",
+        margin: "0 auto",
+      },
+      muted: {
+        color: "#64748B",
+        fontSize: "13px",
+        marginTop: "8px",
+      },
+      error: {
+        padding: "8px 12px",
+        backgroundColor: "#FEF2F2",
+        border: "1px solid #FECACA",
+        borderRadius: `${Math.max(t.borderRadius! - 2, 4)}px`,
+        color: "#DC2626",
+        fontSize: "13px",
+        marginBottom: "12px",
+      },
+      fieldList: {
+        marginTop: "12px",
+      },
+      field: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "6px 0",
+        borderBottom: "1px solid #F0F4F8",
+      },
+      fieldLabel: {
+        fontSize: "11px",
+        fontWeight: "500",
+        color: "#64748B",
+        textTransform: "uppercase" as const,
+        letterSpacing: "0.05em",
+        flex: "0 0 auto",
+      },
+      fieldValue: {
+        flex: "1",
+        textAlign: "right" as const,
+        fontFamily: '"Fragment Mono", monospace',
+        fontSize: "13px",
+        marginLeft: "8px",
+      },
+      dot: {
+        width: "6px",
+        height: "6px",
+        borderRadius: "50%",
+        marginLeft: "8px",
+        flexShrink: "0",
+      },
+      checkmark: {
+        width: "48px",
+        height: "48px",
+        borderRadius: "50%",
+        backgroundColor: "#16A34A",
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "24px",
+        fontWeight: "bold",
+        margin: "0 auto",
+      },
+      linkBtn: {
+        background: "none",
+        border: "none",
+        color: t.primaryColor,
+        cursor: "pointer",
+        fontSize: "13px",
+        marginTop: "12px",
+        textDecoration: "underline",
+      },
+      footer: {
+        padding: "8px 16px",
+        borderTop: "1px solid #E2E8F0",
+        textAlign: "center" as const,
+      },
+      footerLink: {
+        color: "#94A3B8",
+        fontSize: "11px",
+        textDecoration: "none",
+      },
+    };
+  }, [resolved]);
 
   async function handleSubmit() {
     if (!text.trim()) return;
@@ -156,40 +390,45 @@ function SiftWidget({
     setError("");
   }
 
+  const headerTitle =
+    state === "done"
+      ? "Submitted"
+      : state === "extracting"
+      ? "Analyzing..."
+      : resolved.copy.title;
+
   return (
-    <div style={styles.container}>
+    <div style={s.container}>
       {/* Header */}
-      <div style={styles.header}>
-        <span style={styles.headerText}>
-          {state === "done"
-            ? "Submitted"
-            : state === "extracting"
-            ? "Analyzing..."
-            : "Tell us what's going on"}
-        </span>
+      <div style={s.header}>
+        <span style={s.headerText}>{headerTitle}</span>
+        {resolved.copy.subtitle &&
+          (state === "idle" || state === "composing") && (
+            <div style={s.subtitle}>{resolved.copy.subtitle}</div>
+          )}
       </div>
 
       {/* Body */}
-      <div style={styles.body}>
-        {error && <div style={styles.error}>{error}</div>}
+      <div style={s.body}>
+        {error && <div style={s.error}>{error}</div>}
 
         {(state === "idle" || state === "composing") && (
           <div>
-            <div style={styles.textareaWrap}>
+            <div style={s.textareaWrap}>
               <textarea
                 value={text}
                 onInput={(e) => {
                   setText((e.target as HTMLTextAreaElement).value);
                   if (state === "idle") setState("composing");
                 }}
-                placeholder="Describe your situation in your own words..."
-                style={styles.textarea}
+                placeholder={resolved.copy.placeholder}
+                style={s.textarea}
                 rows={5}
               />
               <button
                 onClick={toggleVoice}
                 style={{
-                  ...styles.voiceBtn,
+                  ...s.voiceBtn,
                   ...(listening ? { color: "#DC2626" } : {}),
                 }}
                 title={listening ? "Stop recording" : "Start voice input"}
@@ -201,36 +440,36 @@ function SiftWidget({
               onClick={handleSubmit}
               disabled={!text.trim()}
               style={{
-                ...styles.submitBtn,
+                ...s.submitBtn,
                 ...(!text.trim() ? { opacity: 0.5 } : {}),
               }}
             >
-              Submit
+              {resolved.copy.buttonText}
             </button>
           </div>
         )}
 
         {state === "extracting" && (
-          <div style={styles.center}>
-            <div style={styles.spinner} />
-            <p style={styles.muted}>Extracting your data...</p>
+          <div style={s.center}>
+            <div style={s.spinner} />
+            <p style={s.muted}>Extracting your data...</p>
           </div>
         )}
 
         {state === "review" && result && (
           <div>
-            <div style={styles.fieldList}>
+            <div style={s.fieldList}>
               {Object.entries(result.fields)
                 .filter(([, f]) => f.value !== null)
                 .map(([key, field]) => (
-                  <div key={key} style={styles.field}>
-                    <span style={styles.fieldLabel}>{key}</span>
-                    <span style={styles.fieldValue}>
+                  <div key={key} style={s.field}>
+                    <span style={s.fieldLabel}>{key}</span>
+                    <span style={s.fieldValue}>
                       {String(field.value)}
                     </span>
                     <span
                       style={{
-                        ...styles.dot,
+                        ...s.dot,
                         backgroundColor:
                           field.confidence >= 0.8
                             ? "#16A34A"
@@ -247,22 +486,22 @@ function SiftWidget({
 
         {state === "followup" && result && (
           <div>
-            <p style={styles.muted}>
+            <p style={s.muted}>
               We need a few more details:
             </p>
             {/* Show extracted fields first */}
-            <div style={styles.fieldList}>
+            <div style={s.fieldList}>
               {Object.entries(result.fields)
                 .filter(([, f]) => f.value !== null)
                 .map(([key, field]) => (
-                  <div key={key} style={styles.field}>
-                    <span style={styles.fieldLabel}>{key}</span>
-                    <span style={styles.fieldValue}>
+                  <div key={key} style={s.field}>
+                    <span style={s.fieldLabel}>{key}</span>
+                    <span style={s.fieldValue}>
                       {String(field.value)}
                     </span>
                     <span
                       style={{
-                        ...styles.dot,
+                        ...s.dot,
                         backgroundColor: "#16A34A",
                       }}
                     />
@@ -272,7 +511,7 @@ function SiftWidget({
             {/* Missing required fields */}
             {result.missing_required.map((fieldName) => (
               <div key={fieldName} style={{ marginTop: "8px" }}>
-                <label style={styles.fieldLabel}>{fieldName} *</label>
+                <label style={s.fieldLabel}>{fieldName} *</label>
                 <input
                   type="text"
                   value={followupValues[fieldName] || ""}
@@ -282,7 +521,7 @@ function SiftWidget({
                       [fieldName]: (e.target as HTMLInputElement).value,
                     })
                   }
-                  style={styles.input}
+                  style={s.input}
                   placeholder={`Enter your ${fieldName}`}
                 />
               </div>
@@ -293,7 +532,7 @@ function SiftWidget({
                 (f) => !followupValues[f]?.trim()
               )}
               style={{
-                ...styles.submitBtn,
+                ...s.submitBtn,
                 ...(result.missing_required.some(
                   (f) => !followupValues[f]?.trim()
                 )
@@ -307,19 +546,19 @@ function SiftWidget({
         )}
 
         {state === "confirming" && (
-          <div style={styles.center}>
-            <div style={styles.spinner} />
-            <p style={styles.muted}>Submitting...</p>
+          <div style={s.center}>
+            <div style={s.spinner} />
+            <p style={s.muted}>Submitting...</p>
           </div>
         )}
 
         {state === "done" && (
-          <div style={styles.center}>
-            <div style={styles.checkmark}>✓</div>
-            <p style={{ ...styles.muted, marginTop: "8px" }}>
+          <div style={s.center}>
+            <div style={s.checkmark}>✓</div>
+            <p style={{ ...s.muted, marginTop: "8px" }}>
               Thank you! Your information has been submitted.
             </p>
-            <button onClick={reset} style={styles.linkBtn}>
+            <button onClick={reset} style={s.linkBtn}>
               Submit another
             </button>
           </div>
@@ -327,12 +566,12 @@ function SiftWidget({
       </div>
 
       {/* Footer */}
-      <div style={styles.footer}>
+      <div style={s.footer}>
         <a
           href="https://siftforms.com"
           target="_blank"
           rel="noopener noreferrer"
-          style={styles.footerLink}
+          style={s.footerLink}
         >
           Powered by Sift
         </a>
@@ -341,185 +580,33 @@ function SiftWidget({
   );
 }
 
-const styles: Record<string, any> = {
-  container: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    border: "1px solid #E2E8F0",
-    borderRadius: "8px",
-    overflow: "hidden",
-    maxWidth: "480px",
-    backgroundColor: "#FAFCFE",
-    fontSize: "14px",
-    color: "#1A2332",
-    lineHeight: "1.5",
-  },
-  header: {
-    padding: "12px 16px",
-    borderBottom: "1px solid #E2E8F0",
-    backgroundColor: "#F0F4F8",
-  },
-  headerText: {
-    fontWeight: "600",
-    fontSize: "14px",
-  },
-  body: {
-    padding: "16px",
-  },
-  textareaWrap: {
-    position: "relative",
-  },
-  textarea: {
-    width: "100%",
-    border: "1px solid #E2E8F0",
-    borderRadius: "6px",
-    padding: "10px 40px 10px 12px",
-    fontSize: "14px",
-    fontFamily: "inherit",
-    resize: "vertical",
-    outline: "none",
-    color: "#1A2332",
-    backgroundColor: "#fff",
-    boxSizing: "border-box",
-  },
-  voiceBtn: {
-    position: "absolute",
-    right: "8px",
-    top: "8px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    fontSize: "18px",
-    padding: "4px",
-    borderRadius: "4px",
-    color: "#64748B",
-  },
-  submitBtn: {
-    width: "100%",
-    marginTop: "10px",
-    padding: "10px",
-    backgroundColor: "#2563EB",
-    color: "#fff",
-    border: "none",
-    borderRadius: "6px",
-    fontWeight: "500",
-    fontSize: "14px",
-    cursor: "pointer",
-  },
-  input: {
-    width: "100%",
-    border: "1px solid #E2E8F0",
-    borderRadius: "6px",
-    padding: "8px 12px",
-    fontSize: "14px",
-    outline: "none",
-    color: "#1A2332",
-    marginTop: "4px",
-    boxSizing: "border-box",
-  },
-  center: {
-    textAlign: "center",
-    padding: "20px 0",
-  },
-  spinner: {
-    width: "24px",
-    height: "24px",
-    border: "2px solid #E2E8F0",
-    borderTopColor: "#2563EB",
-    borderRadius: "50%",
-    animation: "sift-spin 0.6s linear infinite",
-    margin: "0 auto",
-  },
-  muted: {
-    color: "#64748B",
-    fontSize: "13px",
-    marginTop: "8px",
-  },
-  error: {
-    padding: "8px 12px",
-    backgroundColor: "#FEF2F2",
-    border: "1px solid #FECACA",
-    borderRadius: "6px",
-    color: "#DC2626",
-    fontSize: "13px",
-    marginBottom: "12px",
-  },
-  fieldList: {
-    marginTop: "12px",
-  },
-  field: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "6px 0",
-    borderBottom: "1px solid #F0F4F8",
-  },
-  fieldLabel: {
-    fontSize: "11px",
-    fontWeight: "500",
-    color: "#64748B",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    flex: "0 0 auto",
-  },
-  fieldValue: {
-    flex: "1",
-    textAlign: "right",
-    fontFamily: '"Fragment Mono", monospace',
-    fontSize: "13px",
-    marginLeft: "8px",
-  },
-  dot: {
-    width: "6px",
-    height: "6px",
-    borderRadius: "50%",
-    marginLeft: "8px",
-    flexShrink: "0",
-  },
-  checkmark: {
-    width: "48px",
-    height: "48px",
-    borderRadius: "50%",
-    backgroundColor: "#16A34A",
-    color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "24px",
-    fontWeight: "bold",
-    margin: "0 auto",
-  },
-  linkBtn: {
-    background: "none",
-    border: "none",
-    color: "#2563EB",
-    cursor: "pointer",
-    fontSize: "13px",
-    marginTop: "12px",
-    textDecoration: "underline",
-  },
-  footer: {
-    padding: "8px 16px",
-    borderTop: "1px solid #E2E8F0",
-    textAlign: "center",
-  },
-  footerLink: {
-    color: "#94A3B8",
-    fontSize: "11px",
-    textDecoration: "none",
-  },
-};
-
 // ─── Bootstrap ───
-function initWidget() {
+async function initWidget() {
   const scripts = document.querySelectorAll(
     'script[data-schema-id][data-api-key]'
   );
 
-  scripts.forEach((script) => {
+  for (const script of scripts) {
     const schemaId = script.getAttribute("data-schema-id")!;
     const apiKey = script.getAttribute("data-api-key")!;
     const apiUrl =
       script.getAttribute("data-api-url") || "https://siftforms.com";
+
+    // Fetch widget config from API
+    let config: WidgetConfig = {};
+    let description = "";
+    try {
+      const res = await fetch(
+        `${apiUrl}/api/v1/widget-config/${schemaId}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        config = data.config || {};
+        description = data.description || "";
+      }
+    } catch {
+      // Silently fall back to defaults
+    }
 
     // Create container
     const container = document.createElement("div");
@@ -542,10 +629,16 @@ function initWidget() {
     shadow.appendChild(mountPoint);
 
     render(
-      <SiftWidget schemaId={schemaId} apiKey={apiKey} apiUrl={apiUrl} />,
+      <SiftWidget
+        schemaId={schemaId}
+        apiKey={apiKey}
+        apiUrl={apiUrl}
+        initialConfig={config}
+        initialDescription={description}
+      />,
       mountPoint
     );
-  });
+  }
 }
 
 if (document.readyState === "loading") {

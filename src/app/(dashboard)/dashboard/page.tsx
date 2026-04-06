@@ -58,7 +58,7 @@ export default async function DashboardPage() {
       {/* Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          label="Schemas"
+          label="Forms"
           value={schemaCount[0]?.count || 0}
           href="/dashboard/schemas"
         />
@@ -108,13 +108,13 @@ export default async function DashboardPage() {
         {recentSubmissions.length === 0 ? (
           <div className="mt-4 rounded-lg border border-dashed border-border bg-ice p-8 text-center">
             <p className="text-sm text-slate-muted">
-              No submissions yet. Create a schema and start extracting data.
+              No submissions yet. Create a form and start extracting data.
             </p>
             <a
               href="/dashboard/schemas"
               className="mt-3 inline-block rounded-md bg-signal px-4 py-2 text-sm font-medium text-white hover:bg-signal-dark"
             >
-              Create your first schema
+              Create your first form
             </a>
           </div>
         ) : (

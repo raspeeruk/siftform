@@ -8,10 +8,10 @@ export default function SchemaTemplatesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-black tracking-tight text-graphite font-[family-name:var(--font-heading)]">
-          Schema Templates
+          Form Templates
         </h1>
         <p className="mt-1 text-sm text-slate-muted">
-          Start with a pre-built schema and customize it for your use case
+          Start with a pre-built form and customize it for your use case
         </p>
       </div>
 

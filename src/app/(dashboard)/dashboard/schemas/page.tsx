@@ -28,7 +28,7 @@ export default function SchemasPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-black tracking-tight text-graphite font-[family-name:var(--font-heading)]">
-            Schemas
+            Forms
           </h1>
           <p className="mt-1 text-sm text-slate-muted">
             Define what data to extract from user input
@@ -45,7 +45,7 @@ export default function SchemasPage() {
             href="/dashboard/schemas/new"
             className="rounded-md bg-signal px-4 py-2 text-sm font-medium text-white hover:bg-signal-dark"
           >
-            New schema
+            New form
           </Link>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default function SchemasPage() {
       ) : schemas.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border bg-ice p-12 text-center">
           <p className="text-sm text-slate-muted">
-            No schemas yet. Create one to start extracting data.
+            No forms yet. Create one to start extracting data.
           </p>
           <div className="mt-4 flex justify-center gap-3">
             <Link

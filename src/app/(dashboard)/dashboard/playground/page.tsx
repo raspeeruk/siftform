@@ -91,7 +91,7 @@ export default function PlaygroundPage() {
           <div className="flex items-end gap-3">
             <div className="flex-1">
               <label className="mb-1 block text-xs font-medium text-slate-muted">
-                Schema
+                Form
               </label>
               <select
                 value={selectedSchema}

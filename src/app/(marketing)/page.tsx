@@ -188,7 +188,7 @@ export default function HomePage() {
                   01
                 </span>
                 <h3 className="mt-2 text-base font-bold text-graphite font-[family-name:var(--font-heading)]">
-                  Define your schema
+                  Define your form
                 </h3>
                 <p className="mt-1 text-sm text-slate-muted">
                   Name, email, issue type — whatever fields matter to your
@@ -276,7 +276,7 @@ export default function HomePage() {
                   Ready-made templates
                 </h2>
                 <p className="mt-2 text-slate-muted">
-                  Start with a proven schema. Customise any field.
+                  Start with a proven template. Customise any field.
                 </p>
               </div>
               <Link
@@ -387,7 +387,7 @@ export default function HomePage() {
               Start extracting data.
             </h2>
             <p className="mt-4 text-slate-muted">
-              Set up your first schema in under 5 minutes. Free tier included —
+              Set up your first form in under 5 minutes. Free tier included —
               no credit card required.
             </p>
             <Link
