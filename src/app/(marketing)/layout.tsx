@@ -87,6 +87,9 @@ export default function MarketingLayout({
               <Link href="/docs/api" className="hover:text-graphite">
                 API
               </Link>
+              <Link href="/contact" className="hover:text-graphite">
+                Contact
+              </Link>
             </nav>
             <p className="text-xs text-slate-muted">
               &copy; {new Date().getFullYear()} Sift
