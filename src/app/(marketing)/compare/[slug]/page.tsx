@@ -31,8 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const comp = findCompetitor(slug);
   if (!comp) return {};
   return createMetadata({
-    title: `Sift vs ${comp.name}`,
-    description: `Compare Sift and ${comp.name}. See how AI text extraction compares to traditional form builders for data collection.`,
+    title: `Sift Forms vs ${comp.name}`,
+    description: `Compare Sift Forms and ${comp.name}. See how AI text extraction compares to traditional form builders for data collection.`,
     path: `/compare/sift-vs-${comp.slug}`,
   });
 }
@@ -49,14 +49,14 @@ export default async function ComparePage({ params }: Props) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             comparisonJsonLd({
-              siftName: "Sift",
+              siftName: "Sift Forms",
               competitorName: comp.name,
             }),
             faqJsonLd(comp.faqs),
             breadcrumbJsonLd([
-              { name: "Compare", href: `/compare/sift-vs-${comp.slug}` },
+              { name: "Compare", href: "/compare" },
               {
-                name: `Sift vs ${comp.name}`,
+                name: `Sift Forms vs ${comp.name}`,
                 href: `/compare/sift-vs-${comp.slug}`,
               },
             ]),
@@ -67,16 +67,16 @@ export default async function ComparePage({ params }: Props) {
         <div className="mx-auto max-w-5xl px-6">
           <Breadcrumbs
             items={[
-              { label: "Compare" },
-              { label: `Sift vs ${comp.name}` },
+              { label: "Compare", href: "/compare" },
+              { label: `Sift Forms vs ${comp.name}` },
             ]}
           />
 
           <h1 className="text-4xl font-black tracking-tight text-graphite sm:text-5xl font-[family-name:var(--font-heading)]">
-            Sift vs {comp.name}
+            Sift Forms vs {comp.name}
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-muted">
-            {comp.name} is a {comp.paradigm.replace("-", " ")}. Sift takes a
+            {comp.name} is a {comp.paradigm.replace("-", " ")}. Sift Forms takes a
             different approach: instead of building forms with fields, users
             write naturally and AI extracts the data.
           </p>
@@ -94,7 +94,7 @@ export default async function ComparePage({ params }: Props) {
             </div>
             <div className="rounded-lg border border-signal/20 bg-signal-light/10 p-6">
               <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-signal">
-                Sift approach
+                Sift Forms approach
               </h2>
               <p className="text-sm text-graphite">
                 Users describe their situation in one text block. AI extracts
@@ -122,7 +122,7 @@ export default async function ComparePage({ params }: Props) {
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-signal/20 bg-signal-light/10 p-5">
-                <p className="text-sm font-bold text-signal">Sift</p>
+                <p className="text-sm font-bold text-signal">Sift Forms</p>
                 <p className="mt-1 text-2xl font-black text-graphite font-[family-name:var(--font-heading)]">
                   From $29/mo
                 </p>
@@ -144,7 +144,7 @@ export default async function ComparePage({ params }: Props) {
           <section className="mt-12 grid gap-6 sm:grid-cols-2">
             <div>
               <h2 className="mb-4 text-lg font-bold text-graphite font-[family-name:var(--font-heading)]">
-                Why choose Sift
+                Why choose Sift Forms
               </h2>
               <ul className="space-y-2">
                 {comp.siftAdvantages.map((a) => (
@@ -205,7 +205,7 @@ export default async function ComparePage({ params }: Props) {
           {/* Switch reason */}
           <section className="mt-8 rounded-lg border border-signal/20 bg-signal-light/10 p-6">
             <h2 className="mb-2 text-lg font-bold text-signal font-[family-name:var(--font-heading)]">
-              The key reason teams switch to Sift
+              The key reason teams switch to Sift Forms
             </h2>
             <p className="text-sm text-graphite">{comp.switchReason}</p>
           </section>

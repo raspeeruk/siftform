@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { createMetadata } from "@/lib/pseo/metadata";
 
-export const metadata: Metadata = {
-  title: "API Documentation — Sift",
-  description: "Sift API reference for text and file extraction.",
-};
+export const metadata: Metadata = createMetadata({
+  title: "API Documentation",
+  description: "Sift Forms API reference for text and file extraction.",
+  path: "/docs/api",
+});
 
 export default function ApiDocsPage() {
   return (
@@ -73,8 +75,8 @@ export default function ApiDocsPage() {
           {/* Extract file */}
           <Section title="POST /extract/file" badge="File Extraction">
             <p>
-              Upload an image or PDF. Sift extracts text via AI vision, then maps
-              to your schema.
+              Upload an image or PDF. Sift Forms extracts text via AI vision,
+              then maps to your schema.
             </p>
             <Code>{`curl -X POST https://siftforms.com/api/v1/extract/file \\
   -H "Authorization: Bearer iq_live_xxx" \\

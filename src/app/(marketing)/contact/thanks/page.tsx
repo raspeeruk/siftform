@@ -1,10 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createMetadata } from "@/lib/pseo/metadata";
 
-export const metadata: Metadata = {
-  title: "Message sent — Sift",
+export const metadata: Metadata = createMetadata({
+  title: "Message sent",
   description: "Thanks for getting in touch. We'll respond shortly.",
-};
+  path: "/contact/thanks",
+  noIndex: true,
+});
 
 export default function ContactThanks() {
   return (

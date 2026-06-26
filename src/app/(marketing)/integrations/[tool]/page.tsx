@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const integration = integrations.find((i) => i.slug === slug);
   if (!integration) return {};
   return createMetadata({
-    title: `Sift + ${integration.name} Integration`,
+    title: `Sift Forms + ${integration.name} Integration`,
     description: integration.description,
     path: `/integrations/${slug}`,
   });
@@ -62,7 +62,7 @@ export default async function IntegrationPage({ params }: Props) {
             <span className="text-4xl">{integration.logo}</span>
             <div>
               <h1 className="text-4xl font-black tracking-tight text-graphite sm:text-5xl font-[family-name:var(--font-heading)]">
-                Sift + {integration.name}
+                Sift Forms + {integration.name}
               </h1>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default async function IntegrationPage({ params }: Props) {
                 <thead>
                   <tr className="border-b border-border bg-polar/50">
                     <th className="px-4 py-3 font-medium text-slate-muted">
-                      Sift Field
+                      Sift Forms Field
                     </th>
                     <th className="px-4 py-3 font-medium text-slate-muted">
                       {integration.name} Field
@@ -180,7 +180,7 @@ export default async function IntegrationPage({ params }: Props) {
           {/* CTA */}
           <section className="mt-12 rounded-lg border border-signal/20 bg-signal-light/10 p-8 text-center">
             <h2 className="text-xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-              Connect Sift to {integration.name}
+              Connect Sift Forms to {integration.name}
             </h2>
             <p className="mt-2 text-sm text-slate-muted">
               Set up in under 5 minutes with webhooks. No credit card required.

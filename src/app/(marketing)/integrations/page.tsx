@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/pseo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Integrations",
   description:
-    "Connect Sift to Zapier, Slack, HubSpot, Google Sheets, Jira, and more. Send structured extraction data anywhere via webhooks.",
+    "Connect Sift Forms to Zapier, Slack, HubSpot, Google Sheets, Jira, and more. Send structured extraction data anywhere via webhooks.",
   path: "/integrations",
 });
 
@@ -31,8 +31,8 @@ export default function IntegrationsPage() {
           Integrations
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-slate-muted">
-          Sift sends structured data to your tools via webhooks. Connect to
-          anything that accepts HTTP — or use Zapier and Make for 5,000+ app
+          Sift Forms sends structured data to your tools via webhooks. Connect
+          to anything that accepts HTTP — or use Zapier and Make for 5,000+ app
           connections.
         </p>
 

@@ -1,18 +1,20 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createMetadata } from "@/lib/pseo/metadata";
 
-export const metadata: Metadata = {
-  title: "Pricing — Sift",
+export const metadata: Metadata = createMetadata({
+  title: "Pricing",
   description:
     "Start free with 50 AI extractions/month. Upgrade for more volume, forms, and API access.",
-};
+  path: "/pricing",
+});
 
 const PLANS = [
   {
     id: "free",
     name: "Free",
     price: "$0",
-    description: "Try Sift with zero commitment",
+    description: "Try Sift Forms with zero commitment",
     cta: "Sign up free",
     features: [
       "50 extractions/month",

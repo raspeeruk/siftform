@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ContactPage() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const contactStartedAtRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    contactStartedAtRef.current = performance.now();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,6 +20,10 @@ export default function ContactPage() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const contactElapsedMs =
+      contactStartedAtRef.current === null
+        ? ""
+        : String(Math.round(performance.now() - contactStartedAtRef.current));
 
     try {
       const res = await fetch("/api/contact", {
@@ -26,6 +35,8 @@ export default function ContactPage() {
           company: data.get("company"),
           topic: data.get("topic"),
           message: data.get("message"),
+          website: data.get("website"),
+          contactElapsedMs,
         }),
       });
       if (res.ok) {
@@ -55,6 +66,19 @@ export default function ContactPage() {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+        <div
+          aria-hidden="true"
+          className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+        >
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
         <div>
           <label
             htmlFor="name"

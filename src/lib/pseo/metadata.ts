@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL = "https://siftforms.com";
-const SITE_NAME = "Sift";
+const SITE_NAME = "Sift Forms";
 
 export function createMetadata({
   title,
@@ -44,7 +44,7 @@ export function organizationJsonLd() {
     name: SITE_NAME,
     url: SITE_URL,
     description:
-      "Replace forms with natural language. AI extracts structured data from unstructured text.",
+      "AI forms that turn free-text intake into structured data.",
   };
 }
 

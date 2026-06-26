@@ -98,7 +98,7 @@ export default async function EmbedPlatformPage({ params }: Props) {
           </div>
 
           {/* Steps */}
-          <Section title={`Install Sift on ${platform.name}`}>
+          <Section title={`Install Sift Forms on ${platform.name}`}>
             <ol className="space-y-4">
               {platform.steps.map((step, i) => (
                 <li key={i} className="flex gap-4">
@@ -186,7 +186,7 @@ export default async function EmbedPlatformPage({ params }: Props) {
           {related.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
               <h2 className="text-xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-                Embed Sift on other platforms
+                Embed Sift Forms on other platforms
               </h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {related.map((p) => (
@@ -210,7 +210,7 @@ export default async function EmbedPlatformPage({ params }: Props) {
           {/* CTA */}
           <div className="mt-12 rounded-lg border border-border bg-ice p-8 text-center">
             <h2 className="text-2xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-              Ready to embed Sift on {platform.name}?
+              Ready to embed Sift Forms on {platform.name}?
             </h2>
             <p className="mt-2 text-sm text-slate-muted">
               Create your first form in your dashboard, then come back and paste

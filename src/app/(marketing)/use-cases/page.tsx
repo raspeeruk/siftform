@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/pseo/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Use Cases",
   description:
-    "See how Sift turns free-text submissions into structured data across 15+ business workflows: support tickets, lead capture, client intake, patient intake, bug reporting, claims, and more.",
+    "See how Sift Forms turns free-text submissions into structured data across 15+ workflows: support tickets, lead capture, client intake, patient intake, claims, and more.",
   path: "/use-cases",
 });
 
@@ -18,10 +18,10 @@ export default function UseCasesIndexPage() {
         <Breadcrumbs items={[{ label: "Use Cases" }]} />
 
         <h1 className="text-4xl font-black tracking-tight text-graphite sm:text-5xl font-[family-name:var(--font-heading)]">
-          What can Sift do?
+          What can Sift Forms do?
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-slate-muted">
-          Free-text in, structured data out. See how teams use Sift across{" "}
+          Free-text in, structured data out. See how teams use Sift Forms across{" "}
           {useCases.length} common workflows — from triaging support tickets to
           processing insurance claims.
         </p>
@@ -51,8 +51,8 @@ export default function UseCasesIndexPage() {
             Don&apos;t see your workflow?
           </h2>
           <p className="mt-2 text-sm text-slate-muted">
-            Sift handles any extraction you can describe. Build your own form in
-            minutes — no template required.
+            Sift Forms handles any extraction you can describe. Build your own
+            form in minutes — no template required.
           </p>
           <Link
             href="/login"

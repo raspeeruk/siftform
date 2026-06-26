@@ -5,9 +5,9 @@ import { Breadcrumbs } from "@/components/pseo/breadcrumbs";
 import { createMetadata } from "@/lib/pseo/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Embed Guides — Install Sift on Any Platform",
+  title: "Embed Guides — Install Sift Forms on Any Platform",
   description:
-    "Step-by-step install guides for embedding the Sift AI form widget on Shopify, WordPress, Webflow, Squarespace, Wix, React, Next.js, Framer, Ghost, and plain HTML.",
+    "Step-by-step install guides for embedding the Sift Forms AI widget on Shopify, WordPress, Webflow, Squarespace, Wix, React, Next.js, Framer, Ghost, and plain HTML.",
   path: "/docs/embed",
 });
 
@@ -20,13 +20,13 @@ const CATEGORIES: {
     id: "ecommerce",
     label: "Ecommerce",
     description:
-      "Install Sift on storefronts to capture quote requests, custom orders, and lead intake.",
+      "Install Sift Forms on storefronts to capture quote requests, custom orders, and lead intake.",
   },
   {
     id: "cms",
     label: "Content management systems",
     description:
-      "Embed Sift on blog posts, pages, and members-only content.",
+      "Embed Sift Forms on blog posts, pages, and members-only content.",
   },
   {
     id: "site-builder",
@@ -60,7 +60,7 @@ export default function EmbedIndexPage() {
         />
 
         <h1 className="text-4xl font-black tracking-tight text-graphite sm:text-5xl font-[family-name:var(--font-heading)]">
-          Embed Sift on any platform
+          Embed Sift Forms on any platform
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-slate-muted">
           Pick your platform below for a step-by-step guide. Every install takes
@@ -68,10 +68,10 @@ export default function EmbedIndexPage() {
         </p>
 
         <div className="mt-8 rounded-md border border-signal/20 bg-signal-light/10 p-4 text-sm text-graphite">
-          <strong>One snippet, every platform.</strong> Sift is a single script
-          tag that uses Shadow DOM to stay isolated from your site styles. It
-          works the same way on Shopify, WordPress, React, or any platform that
-          accepts custom HTML.
+          <strong>One snippet, every platform.</strong> Sift Forms is a single
+          script tag that uses Shadow DOM to stay isolated from your site
+          styles. It works the same way on Shopify, WordPress, React, or any
+          platform that accepts custom HTML.
         </div>
 
         {CATEGORIES.map((cat) => {

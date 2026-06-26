@@ -14,9 +14,15 @@ export default function MarketingLayout({
               href="/"
               className="text-lg font-black tracking-tight text-graphite font-[family-name:var(--font-heading)]"
             >
-              sift
+              sift forms
             </Link>
             <nav className="hidden items-center gap-6 sm:flex">
+              <Link
+                href="/ai-form-builder"
+                className="text-sm text-slate-muted hover:text-graphite"
+              >
+                AI Form Builder
+              </Link>
               <Link
                 href="/templates"
                 className="text-sm text-slate-muted hover:text-graphite"
@@ -72,14 +78,23 @@ export default function MarketingLayout({
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <span className="text-lg font-black tracking-tight text-graphite/30 font-[family-name:var(--font-heading)]">
-              sift
+              sift forms
             </span>
             <nav className="flex flex-wrap gap-6 text-sm text-slate-muted">
               <Link href="/templates" className="hover:text-graphite">
                 Templates
               </Link>
+              <Link href="/use-cases" className="hover:text-graphite">
+                Use Cases
+              </Link>
               <Link href="/pricing" className="hover:text-graphite">
                 Pricing
+              </Link>
+              <Link href="/compare" className="hover:text-graphite">
+                Compare
+              </Link>
+              <Link href="/for" className="hover:text-graphite">
+                Industries
               </Link>
               <Link href="/integrations" className="hover:text-graphite">
                 Integrations
@@ -92,7 +107,7 @@ export default function MarketingLayout({
               </Link>
             </nav>
             <p className="text-xs text-slate-muted">
-              &copy; {new Date().getFullYear()} Sift
+              &copy; {new Date().getFullYear()} Sift Forms
             </p>
           </div>
         </div>

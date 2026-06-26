@@ -5,6 +5,7 @@ import { useCases } from "@/lib/pseo/use-cases";
 import { competitors } from "@/lib/pseo/competitors";
 import { integrations } from "@/lib/pseo/integrations";
 import { embedPlatforms } from "@/lib/pseo/embed-platforms";
+import { seoPillarList } from "@/lib/pseo/pillars";
 
 const BASE_URL = "https://siftforms.com";
 
@@ -16,11 +17,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/templates`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/use-cases`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/for`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/alternatives`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/integrations`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/docs/api`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/docs/widget`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/docs/embed`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
+
+  const pillarPages: MetadataRoute.Sitemap = seoPillarList.map((p) => ({
+    url: `${BASE_URL}/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
 
   const templatePages: MetadataRoute.Sitemap = pseoTemplates.map((t) => ({
     url: `${BASE_URL}/templates/${t.slug}`,
@@ -73,6 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages,
+    ...pillarPages,
     ...templatePages,
     ...industryPages,
     ...useCasePages,

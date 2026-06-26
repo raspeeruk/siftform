@@ -61,7 +61,7 @@ export default async function UseCasePage({ params }: Props) {
         <div className="mx-auto max-w-5xl px-6">
           <Breadcrumbs
             items={[
-              { label: "Use Cases", href: "/use-cases/support-tickets" },
+              { label: "Use Cases", href: "/use-cases" },
               { label: uc.name },
             ]}
           />
@@ -103,7 +103,7 @@ export default async function UseCasePage({ params }: Props) {
           {/* Benefits */}
           <section className="mt-12">
             <h2 className="mb-6 text-xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-              Why teams switch to Sift
+              Why teams switch to Sift Forms
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {uc.benefits.map((b) => (

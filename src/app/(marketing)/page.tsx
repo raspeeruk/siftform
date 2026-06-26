@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ExtractionDemo } from "@/components/pseo/extraction-demo";
 import { TemplateCard } from "@/components/pseo/template-card";
 import { pseoTemplates } from "@/lib/pseo/templates";
 import {
@@ -10,9 +9,9 @@ import {
 } from "@/lib/pseo/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Turn Unstructured Text into Structured Data",
+  title: "AI Form Builder for Free-Text Intake",
   description:
-    "Replace forms with natural language. Users describe their situation, AI extracts the data you need. Embed anywhere with one line of code.",
+    "Sift Forms is an AI form builder for free-text intake. Users write naturally, AI extracts structured fields, and clean data flows to your tools.",
   path: "/",
 });
 
@@ -114,6 +113,45 @@ const INTEGRATION_LOGOS = [
   "Salesforce",
 ];
 
+const PILLAR_LINKS = [
+  {
+    href: "/ai-form-builder",
+    title: "AI form builder",
+    description:
+      "Build forms around AI extraction instead of long field-by-field flows.",
+  },
+  {
+    href: "/ai-intake-forms",
+    title: "AI intake forms",
+    description:
+      "Capture complete requests for sales, support, operations, and services.",
+  },
+  {
+    href: "/natural-language-form-builder",
+    title: "Natural language forms",
+    description:
+      "Let people answer in plain language while your team gets structured data.",
+  },
+  {
+    href: "/contact-form-data-extraction",
+    title: "Contact form extraction",
+    description:
+      "Turn inbound contact messages into routed lead and support records.",
+  },
+  {
+    href: "/form-data-extraction-api",
+    title: "Form data extraction API",
+    description:
+      "Extract structured JSON from free-text submissions in your own app.",
+  },
+  {
+    href: "/typeform-ai-alternative",
+    title: "Typeform AI alternative",
+    description:
+      "Use Sift Forms when extracted intake data matters more than form design.",
+  },
+];
+
 export default function HomePage() {
   const topTemplates = pseoTemplates.slice(0, 6);
 
@@ -134,29 +172,30 @@ export default function HomePage() {
         <section className="px-6 py-24 text-center">
           <div className="mx-auto max-w-3xl">
             <p className="text-sm font-medium uppercase tracking-widest text-signal">
-              Forms are broken
+              AI form builder for free-text intake
             </p>
             <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-graphite sm:text-6xl font-[family-name:var(--font-heading)]">
-              Turn text into
+              Turn form messages into
               <br />
               <span className="text-signal">structured data</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-slate-muted">
-              Users describe their situation in plain English. AI extracts
-              exactly the fields you need. Embed anywhere with one line of code.
+              Sift Forms lets users describe requests in plain language. AI
+              extracts the fields you need for sales, support, intake, and
+              operations.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/login"
                 className="rounded-md bg-signal px-6 py-3 text-sm font-medium text-white shadow-sm hover:bg-signal-dark"
               >
-                Start extracting data
+                Build an AI form
               </Link>
               <Link
-                href="#demo"
+                href="/ai-form-builder"
                 className="rounded-md border border-border bg-ice px-6 py-3 text-sm font-medium text-graphite hover:bg-polar"
               >
-                See it work
+                Learn how it works
               </Link>
             </div>
           </div>
@@ -169,10 +208,45 @@ export default function HomePage() {
               AI extraction in action
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-center text-slate-muted">
-              Every industry, every use case. Users write naturally — Sift
+              Every industry, every use case. Users write naturally. Sift Forms
               extracts the structure.
             </p>
             <UseCaseTabs />
+          </div>
+        </section>
+
+        {/* Category pages */}
+        <section className="border-t border-border px-6 py-20">
+          <div className="mx-auto max-w-5xl">
+            <div className="max-w-2xl">
+              <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.18em] text-signal">
+                What Sift Forms replaces
+              </p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-graphite font-[family-name:var(--font-heading)]">
+                One AI intake layer for messy form workflows
+              </h2>
+              <p className="mt-3 text-slate-muted">
+                Sift Forms is built for the work that breaks ordinary forms:
+                open-ended requests, incomplete context, mixed intent, and data
+                that still has to land cleanly in your systems.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {PILLAR_LINKS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="border border-border bg-ice p-5 transition hover:border-signal/40"
+                >
+                  <h3 className="text-base font-bold text-graphite font-[family-name:var(--font-heading)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-muted">
+                    {item.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -229,7 +303,7 @@ export default function HomePage() {
             <div className="grid items-center gap-12 sm:grid-cols-2">
               <div>
                 <h2 className="text-3xl font-black tracking-tight text-graphite font-[family-name:var(--font-heading)]">
-                  Embed anywhere
+                  Embed Sift Forms anywhere
                 </h2>
                 <p className="mt-3 text-slate-muted">
                   One script tag adds an AI-powered text input to any page.
@@ -253,7 +327,7 @@ export default function HomePage() {
                   </p>
                   <div className="mx-auto mt-4 max-w-xs rounded border border-signal/20 bg-signal-light/10 p-3">
                     <p className="text-xs font-medium text-signal">
-                      Sift Widget
+                      Sift Forms Widget
                     </p>
                     <div className="mt-2 rounded bg-white p-2">
                       <p className="text-left text-[11px] text-slate-muted">
@@ -394,7 +468,7 @@ export default function HomePage() {
               href="/login"
               className="mt-8 inline-block rounded-md bg-signal px-8 py-3 text-sm font-medium text-white shadow-sm hover:bg-signal-dark"
             >
-              Try Sift free — 50 extractions/mo
+              Try Sift Forms free — 50 extractions/mo
             </Link>
           </div>
         </section>

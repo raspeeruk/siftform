@@ -1,5 +1,5 @@
 export function FeatureComparisonTable({
-  siftName = "Sift",
+  siftName = "Sift Forms",
   competitorName,
   features,
 }: {

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const industry = industries.find((i) => i.slug === slug);
   if (!industry) return {};
   return createMetadata({
-    title: `Sift for ${industry.name}`,
+    title: `Sift Forms for ${industry.name}`,
     description: industry.description,
     path: `/for/${slug}`,
   });
@@ -52,7 +52,7 @@ export default async function IndustryPage({ params }: Props) {
           __html: JSON.stringify([
             faqJsonLd(industry.faqs),
             breadcrumbJsonLd([
-              { name: "Industries", href: "/for/law-firms" },
+              { name: "Industries", href: "/for" },
               { name: industry.name, href: `/for/${slug}` },
             ]),
           ]),
@@ -62,7 +62,7 @@ export default async function IndustryPage({ params }: Props) {
         <div className="mx-auto max-w-5xl px-6">
           <Breadcrumbs
             items={[
-              { label: "Industries", href: "/for/law-firms" },
+              { label: "Industries", href: "/for" },
               { label: industry.name },
             ]}
           />
@@ -118,7 +118,7 @@ export default async function IndustryPage({ params }: Props) {
           {/* Extraction demo */}
           <section className="mt-12">
             <h2 className="mb-6 text-xl font-bold text-graphite font-[family-name:var(--font-heading)]">
-              See how Sift handles {industry.name.toLowerCase()} intake
+              See how Sift Forms handles {industry.name.toLowerCase()} intake
             </h2>
             <ExtractionDemo
               inputText={industry.exampleInput}

@@ -11,7 +11,7 @@ export function Breadcrumbs({
       className="mb-6 flex items-center gap-1.5 text-sm text-slate-muted"
     >
       <Link href="/" className="hover:text-graphite">
-        Sift
+        Sift Forms
       </Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1.5">

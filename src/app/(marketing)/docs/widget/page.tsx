@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { createMetadata } from "@/lib/pseo/metadata";
 
-export const metadata: Metadata = {
-  title: "Widget Documentation — Sift",
-  description: "Embed the Sift widget on any webpage with one script tag.",
-};
+export const metadata: Metadata = createMetadata({
+  title: "Widget Documentation",
+  description: "Embed the Sift Forms widget on any webpage with one script tag.",
+  path: "/docs/widget",
+});
 
 export default function WidgetDocsPage() {
   return (
@@ -13,7 +16,7 @@ export default function WidgetDocsPage() {
           Widget Documentation
         </h1>
         <p className="mt-2 text-sm text-slate-muted">
-          Embed Sift on any webpage. One script tag. Zero style conflicts.
+          Embed Sift Forms on any webpage. One script tag. Zero style conflicts.
         </p>
 
         <div className="mt-8 space-y-8">
@@ -127,12 +130,12 @@ export default function WidgetDocsPage() {
               <li>React / Next.js (useEffect pattern)</li>
             </ul>
             <p>
-              <a
+              <Link
                 href="/docs/embed"
                 className="font-medium text-signal hover:underline"
               >
                 View all platform guides &rarr;
-              </a>
+              </Link>
             </p>
           </Section>
 

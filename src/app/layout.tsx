@@ -5,14 +5,14 @@ import "./globals.css";
 const GA_ID = "G-9C5YW41WFP";
 
 export const metadata: Metadata = {
-  title: "Sift — Turn Unstructured Text into Structured Data",
+  title: "Sift Forms — AI Forms for Structured Intake Data",
   description:
-    "Replace your forms with natural language. Users describe their situation, AI extracts the data you need. Embed anywhere with one line of code.",
+    "Sift Forms is an AI form builder for free-text intake. Users write naturally, AI extracts structured fields, and clean data flows to your tools.",
   openGraph: {
-    title: "Sift — Turn Unstructured Text into Structured Data",
+    title: "Sift Forms — AI Forms for Structured Intake Data",
     description:
-      "Replace your forms with natural language. Users describe their situation, AI extracts the data you need.",
-    siteName: "Sift",
+      "Sift Forms turns free-text submissions into structured intake data for sales, support, and operations.",
+    siteName: "Sift Forms",
   },
   verification: {
     google: "Iputr7VnmeGAdV7BDD9009KppfZ5QI1O96e_m589DYY",
