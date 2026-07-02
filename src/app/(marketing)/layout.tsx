@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 export default function MarketingLayout({
   children,
@@ -76,6 +77,13 @@ export default function MarketingLayout({
 
       <footer className="border-t border-border bg-ice py-8">
         <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-border pb-8 sm:flex-row sm:items-center">
+            <p className="text-sm text-slate-muted">
+              Better forms, monthly. Practical tips on forms that convert, plus
+              what&apos;s new in Sift.
+            </p>
+            <NewsletterForm />
+          </div>
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <span className="text-lg font-black tracking-tight text-graphite/30 font-[family-name:var(--font-heading)]">
               sift forms
