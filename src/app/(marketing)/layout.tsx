@@ -105,6 +105,9 @@ export default function MarketingLayout({
               <Link href="/contact" className="hover:text-graphite">
                 Contact
               </Link>
+              <Link href="/privacy" className="hover:text-graphite">
+                Privacy
+              </Link>
             </nav>
             <p className="text-xs text-slate-muted">
               &copy; {new Date().getFullYear()} Sift Forms

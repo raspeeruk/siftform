@@ -10,6 +10,7 @@ import {
   organizations,
 } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { onUserSignup } from "@/lib/signup-events";
 
 function getAdapter() {
   const db = createDb();
@@ -106,6 +107,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         .update(users)
         .set({ organizationId: org.id, role: "owner" })
         .where(eq(users.id, user.id));
+
+      if (!adminConfig) {
+        try {
+          await onUserSignup(user.email, user.name);
+        } catch (err) {
+          console.error("Sift signup event error:", err);
+        }
+      }
     },
   },
   callbacks: {
