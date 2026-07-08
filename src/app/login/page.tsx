@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
@@ -14,10 +14,16 @@ export default function LoginPage() {
 
 function LoginForm() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
+  const loginStartedAtRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    loginStartedAtRef.current = performance.now();
+  }, []);
 
   // If a paid plan was selected, after auth redirect straight to Stripe checkout (server-side)
   const callbackUrl =
@@ -28,7 +34,11 @@ function LoginForm() {
   async function handleMagicLink(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await signIn("resend", { email, callbackUrl });
+    const loginElapsedMs =
+      loginStartedAtRef.current === null
+        ? ""
+        : String(Math.round(performance.now() - loginStartedAtRef.current));
+    await signIn("resend", { email, callbackUrl, website, loginElapsedMs });
     setSent(true);
     setLoading(false);
   }
@@ -57,6 +67,21 @@ function LoginForm() {
         ) : (
           <div className="space-y-6">
             <form onSubmit={handleMagicLink} className="space-y-4">
+              <div
+                aria-hidden="true"
+                className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+              >
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
               <input
                 type="email"
                 value={email}

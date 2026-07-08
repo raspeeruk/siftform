@@ -12,6 +12,8 @@ import {
 import { eq } from "drizzle-orm";
 import { onUserSignup } from "@/lib/signup-events";
 
+const RESEND_KEY = process.env.AUTH_RESEND_KEY || process.env.RESEND_API_KEY;
+
 function getAdapter() {
   const db = createDb();
   return DrizzleAdapter(db, {
@@ -72,6 +74,55 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Resend({
       from: "Sift <noreply@siftforms.com>",
+      // Custom sender: mail the user a link to /login/confirm instead of
+      // the raw NextAuth callback URL.
+      //
+      // Why: NextAuth's email provider consumes the sign-in token and
+      // creates a session on a bare GET to the callback URL. Corporate mail
+      // security scanners (Microsoft SafeLinks, Proofpoint, Mimecast, etc.)
+      // pre-fetch every link in an inbound email with exactly that kind of
+      // GET request, before the real mailbox owner ever opens the message.
+      // A scanner's prefetch alone was enough to mint a real session for
+      // whoever the token was addressed to, which is how bots were turning
+      // harvested corporate addresses into real accounts.
+      //
+      // Fix: the emailed link now points at /login/confirm, an inert page
+      // that only ever renders HTML on GET. The real callback URL is
+      // embedded in that page's client state, not in a static href a
+      // crawler can follow, and it is only navigated to from a click
+      // handler that runs after a genuine user gesture. Scanners fetch and
+      // stop; they do not execute JavaScript or simulate clicks, so this
+      // path never reaches the token-consuming endpoint. A real user sees
+      // one extra "Confirm sign-in" click and then signs in normally.
+      async sendVerificationRequest({ identifier: to, url, provider }) {
+        if (!RESEND_KEY) {
+          throw new Error("Resend API key is not configured");
+        }
+
+        const callbackUrl = new URL(url);
+        const confirmUrl = new URL("/login/confirm", callbackUrl.origin);
+        confirmUrl.searchParams.set("next", callbackUrl.toString());
+
+        const res = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${RESEND_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: provider.from,
+            to,
+            subject: "Sign in to Sift",
+            html: confirmSignInEmailHtml(confirmUrl.toString()),
+            text: confirmSignInEmailText(confirmUrl.toString()),
+          }),
+        });
+
+        if (!res.ok) {
+          const errBody = await res.text();
+          throw new Error("Resend error: " + errBody);
+        }
+      },
     }),
   ],
   pages: {
@@ -136,3 +187,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+function confirmSignInEmailHtml(confirmUrl: string): string {
+  return `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 24px; color: #1a1a1a;">
+      <p style="font-size: 20px; font-weight: 700; margin: 0 0 24px;">sift</p>
+      <h1 style="font-size: 18px; margin: 0 0 12px;">Sign in to Sift</h1>
+      <p style="font-size: 14px; line-height: 1.6; color: #444; margin: 0 0 24px;">
+        Click the button below to finish signing in. The link is valid for a limited time and can only be used once.
+      </p>
+      <a href="${confirmUrl}" style="display: inline-block; background: #111; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">
+        Confirm sign-in
+      </a>
+      <p style="font-size: 12px; color: #888; margin: 24px 0 0;">
+        If you did not request this, you can safely ignore this email.
+      </p>
+    </div>
+  `;
+}
+
+function confirmSignInEmailText(confirmUrl: string): string {
+  return [
+    "Sign in to Sift",
+    "",
+    `Open this link to finish signing in: ${confirmUrl}`,
+    "",
+    "The link is valid for a limited time and can only be used once. If you did not request this, you can safely ignore this email.",
+  ].join("\n");
+}
