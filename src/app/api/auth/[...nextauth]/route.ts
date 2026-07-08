@@ -83,7 +83,14 @@ async function evaluateSignInAttempt(
 // false-positive human still lands on the normal "check your email"
 // screen. No token is created and no email goes out for a blocked request.
 function fakeAcceptedResponse(req: NextRequest) {
-  const url = new URL("/api/auth/verify-request", req.nextUrl.origin);
+  // req.nextUrl.origin can reflect Netlify's internal deploy alias rather
+  // than the public domain the visitor actually used. NextAuth itself
+  // (trustHost: true) resolves the real host from these headers, so mirror
+  // that here to keep a blocked request's redirect on the right domain.
+  const forwardedHost = req.headers.get("x-forwarded-host");
+  const host = forwardedHost || req.headers.get("host") || req.nextUrl.host;
+  const protocol = req.headers.get("x-forwarded-proto") || req.nextUrl.protocol.replace(":", "");
+  const url = new URL("/api/auth/verify-request", `${protocol}://${host}`);
   url.searchParams.set("provider", "resend");
   url.searchParams.set("type", "email");
   return NextResponse.json({ url: url.toString() });
