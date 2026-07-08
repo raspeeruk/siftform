@@ -29,6 +29,8 @@ export async function POST(req: NextRequest) {
 
   const email = getString(body, "email").toLowerCase();
   const website = getString(body, "website");
+  const page = clean(getString(body, "page"));
+  const source = clean(getString(body, "source"));
 
   // Honeypot filled means a bot. Pretend success and drop it.
   if (website) {
@@ -50,7 +52,8 @@ export async function POST(req: NextRequest) {
         "form-name": "newsletter",
         email,
         site: SITE,
-        source: "footer",
+        source: source || "footer",
+        ...(page ? { page } : {}),
       }).toString(),
       signal: AbortSignal.timeout(8_000),
     });
@@ -71,6 +74,10 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+function clean(value: string): string {
+  return value.replace(/[\r\n\t]/g, " ").trim().slice(0, 200);
 }
 
 function getString(body: Record<string, unknown>, key: string): string {

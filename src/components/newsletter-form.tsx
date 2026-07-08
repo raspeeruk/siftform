@@ -4,6 +4,17 @@ import { useState } from "react";
 
 type Status = "idle" | "sending" | "success" | "error";
 
+/** Page and source attribution captured at submit time. SSR-safe. */
+function currentAttribution() {
+  if (typeof window === "undefined") return { page: "", source: "" };
+  const params = new URLSearchParams(window.location.search);
+  const utm = ["utm_source", "utm_medium", "utm_campaign"]
+    .map((key) => params.get(key)?.trim())
+    .filter(Boolean)
+    .join("/");
+  return { page: window.location.pathname, source: utm || "footer" };
+}
+
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -22,10 +33,11 @@ export function NewsletterForm() {
     setError("");
 
     try {
+      const { page, source } = currentAttribution();
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, website }),
+        body: JSON.stringify({ email, website, page, source }),
       });
       const data = await res.json().catch(() => ({}));
 
